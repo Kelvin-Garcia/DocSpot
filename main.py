@@ -4,9 +4,8 @@ from typing import List, Optional
 import uuid # For generating unique IDs
 from datetime import datetime
 
-from . import models, schemas
-from .database import SessionLocal, engine, get_db
-
+import models, schemas
+from database import SessionLocal, engine, get_db
 # Create all tables defined in models.py
 models.Base.metadata.create_all(bind=engine)
 
