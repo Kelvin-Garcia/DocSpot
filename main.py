@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from typing import List, Optional
 import uuid # For generating unique IDs
@@ -10,6 +11,14 @@ from database import SessionLocal, engine, get_db
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],        # Permite peticiones desde estos orígenes
+    allow_credentials=True,       # Permite cookies/headers de autenticación
+    allow_methods=["*"],          # Permite todos los métodos (GET, POST, DELETE, etc.)
+    allow_headers=["*"],          # Permite todos los headers
+)
 
 @app.get("/")
 async def root():
